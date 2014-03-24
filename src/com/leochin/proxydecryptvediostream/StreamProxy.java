@@ -14,10 +14,10 @@ import java.util.StringTokenizer;
 import org.apache.http.HttpRequest;
 import org.apache.http.message.BasicHttpRequest;
 
-import android.os.Environment;
 import android.util.Log;
 
 public class StreamProxy implements Runnable{
+	
 	private static final String LOG_TAG = StreamProxy.class.getName();
 
     private int port = 0;
@@ -82,7 +82,7 @@ public class StreamProxy implements Runnable{
                 }
                 Log.d(LOG_TAG, "client connected");
                 HttpRequest request = readRequest(client);
-                processRequest(request, client);
+              //  processRequest(request, client);
             } catch (SocketTimeoutException e) {
                 // Do nothing
             } catch (IOException e) {
@@ -145,6 +145,7 @@ public class StreamProxy implements Runnable{
         return request;
     }
 
+    /*
     private void processRequest(HttpRequest request, Socket client)
             throws IllegalStateException, IOException {
         EncryptFile inputfile;
@@ -235,4 +236,5 @@ public class StreamProxy implements Runnable{
             }
             client.close();
         }
+        */
 }
