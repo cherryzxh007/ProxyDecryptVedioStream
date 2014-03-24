@@ -9,8 +9,40 @@
     tools:context=".MainActivity" >
 
     <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
+
+    <Button
+        android:id="@+id/main_play_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="19dp"
+        android:onClick="play"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/main_encrypt_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/main_play_button"
+        android:layout_below="@+id/main_play_button"
+        android:layout_marginTop="28dp"
+        android:onClick="encrypt"
+        android:text="Encrypt" />
+
+    <Button
+        android:id="@+id/main_decrypt_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/main_encrypt_button"
+        android:layout_alignBottom="@+id/main_encrypt_button"
+        android:layout_marginLeft="38dp"
+        android:layout_toRightOf="@+id/main_encrypt_button"
+        android:onClick="decrypt"
+        android:text="Decrypt" />
 
 </RelativeLayout>
