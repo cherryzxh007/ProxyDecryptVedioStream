@@ -19,18 +19,17 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 	
 	private MediaPlayer mPlayer;
-	private int port;
+	private LocalProxy proxy;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);		
 		
-		LocalProxy proxy = new LocalProxy();
+		proxy = new LocalProxy();
 		proxy.init();
 		proxy.start();
-		
-		port = proxy.getPort();
+
 		initMediaPlayer();
 		
 	}
@@ -38,7 +37,7 @@ public class MainActivity extends Activity {
 	private void initMediaPlayer(){
 		
 		//Uri uri = Uri.parse("http://172.20.223.172/letitgo.mp3");
-		String str = "http://localhost"+":"+port+"/letitgo.mp3";
+		String str = proxy.getUrl("Music/letitgo.mp3");
 		Uri uri = Uri.parse(str);
 		mPlayer = MediaPlayer.create(this, uri);
 	}

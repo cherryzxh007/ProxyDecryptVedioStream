@@ -38,6 +38,10 @@ public class LocalProxy implements Runnable {
 	public int getPort() {
 		return port;
 	}
+	
+	public String getUrl(String filename){
+		return "http://localhost"+":"+port+"/"+filename;
+	}
 
 	/**
 	 * 
@@ -229,6 +233,13 @@ public class LocalProxy implements Runnable {
 			
 			
 		}else{
+			
+			try {
+				client.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Log.d("wenhao","file not found...");
 		}
 		
