@@ -19,18 +19,27 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 	
 	private MediaPlayer mPlayer;
+	private int port;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);		
 		
+		LocalProxy proxy = new LocalProxy();
+		proxy.init();
+		proxy.start();
+		
+		port = proxy.getPort();
 		initMediaPlayer();
+		
 	}
 	
 	private void initMediaPlayer(){
 		
-		Uri uri = Uri.parse("http://192.168.1.103/letitgo.mp3");
+		//Uri uri = Uri.parse("http://172.20.223.172/letitgo.mp3");
+		String str = "http://localhost"+":"+port+"/letitgo.mp3";
+		Uri uri = Uri.parse(str);
 		mPlayer = MediaPlayer.create(this, uri);
 	}
 
@@ -42,6 +51,11 @@ public class MainActivity extends Activity {
 	public void play(View view){
 		
 		mPlayer.start();
+	}
+	
+	public void stop(View view){
+		
+		mPlayer.stop();
 	}
 	
 	
@@ -61,11 +75,14 @@ public class MainActivity extends Activity {
 				FileInputStream fis = new FileInputStream(inputFile);
 				FileOutputStream fos = new FileOutputStream(outputFile);				
 				
-				byte[] buffer = new byte[1024];
+				byte[] buffer = new byte[5*1024];
 				int len = 0;
 				while((len = fis.read(buffer)) > 0){
 					
-					fos.write(Base64.encode(buffer).getBytes());
+					byte[] byteArray = Base64.encode(buffer).getBytes();
+					
+					Log.d("wenhao","write size = " + byteArray.length);
+					fos.write(byteArray);
 				}
 				
 				fis.close();
@@ -102,12 +119,12 @@ public class MainActivity extends Activity {
 				FileInputStream fis = new FileInputStream(inputFile);
 				FileOutputStream fos = new FileOutputStream(outputFile);				
 				
-				byte[] buffer = new byte[1024];
+				byte[] buffer = new byte[6828];
 				int len = 0;
 				while((len = fis.read(buffer)) > 0){
 					
 					byte[] byteArray = Base64.decode(new String(buffer,0,len));
-					Log.d("wenhao",fos +":"+byteArray);
+					Log.d("wenhao",fos +":"+byteArray.length);
 					fos.write(byteArray);
 					//fos.write(Base64.encode(buffer).getBytes());
 				}
